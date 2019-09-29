@@ -17,7 +17,8 @@
 const Route = use('Route');
 
 Route.group(() => {
-	Route.post('/', 'AuthController.authenticate');
+	Route.post('/', 'AuthController.login');
+	Route.get('/islogin', 'AuthController.isLogin').middleware('auth');
 }).prefix('auth');
 
 Route.group(() => {

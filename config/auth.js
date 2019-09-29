@@ -3,6 +3,8 @@
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env');
 
+const ms = use('ms');
+
 module.exports = {
 	/*
   |--------------------------------------------------------------------------
@@ -31,7 +33,7 @@ module.exports = {
 		serializer: 'lucid',
 		model: 'App/Models/User',
 		scheme: 'session',
-		uid: 'email',
+		uid: 'login',
 		password: 'password'
 	},
 
@@ -69,10 +71,11 @@ module.exports = {
 		serializer: 'lucid',
 		model: 'App/Models/User',
 		scheme: 'jwt',
-		uid: 'email',
-		password: 'password',
+		uid: 'login',
+		password: 'senha',
 		options: {
-			secret: Env.get('APP_KEY')
+			secret: Env.get('APP_KEY'),
+			expiresIn: 5000
 		}
 	},
 
