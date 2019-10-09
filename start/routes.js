@@ -18,11 +18,12 @@ const Route = use('Route');
 
 Route.group(() => {
 	Route.post('/', 'AuthController.login');
-	Route.get('/islogin', 'AuthController.isLogin').middleware('auth');
+	Route.get('/islogin', 'AuthController.isLogin');
+	Route.get('/logout', 'AuthController.logout');
 }).prefix('auth');
 
 Route.group(() => {
-	Route.post('create', 'UserController.create');
+	Route.post('create', 'UserController.create').validator('storeUser');
 	Route.post('update', 'UserController.update');
 	Route.get('delete/:id', 'UserController.delete');
 	Route.get('show/:id', 'UserController.show');

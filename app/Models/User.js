@@ -12,6 +12,14 @@ class User extends Model {
 		});
 	}
 
+	static get hidden() {
+		return [ 'senha' ];
+	}
+
+	static castDates(field, value) {
+		if (field == 'created_at' || field == 'updated_at') return value ? value.format('DD/MM/YYYY') : value;
+	}
+
 	tokens() {
 		return this.hasMany('App/Models/Token');
 	}

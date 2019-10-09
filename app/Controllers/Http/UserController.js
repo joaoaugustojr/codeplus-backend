@@ -2,13 +2,17 @@
 
 const User = use('App/Models/User');
 const Database = use('Database');
+const { validate } = use('Validator');
 
 class UserController {
 	async create({ request, response }) {
-		const data = request.only([ 'estabelecimento_id', 'nome', 'login', 'senha', 'email' ]);
-		await User.create(data);
-
-		return response.send({ message: 'usuário criado com sucesso' });
+		try {
+			const data = request.only([ 'estabelecimento_id', 'nome', 'login', 'senha', 'email', 'status' ]);
+			await User.create(data);
+			return response.send({ message: 'Usuário criado com sucesso!', response: true });
+		} catch (error) {
+			return response.send({ message: 'Error ao criar novo usuário:\n' + error.message, response: false });
+		}
 	}
 
 	async show({ params, response }) {
@@ -18,8 +22,19 @@ class UserController {
 	}
 
 	async all({ response }) {
-		const user = await User.all();
-		return response.json(user);
+		try {
+			const user = await User.all();
+			return response.json({
+				usuarios: user,
+				message: 'Listando usuários',
+				response: true
+			});
+		} catch (error) {
+			return response.json({
+				message: 'Erro ao listar usuários:\n' + error.message,
+				response: false
+			});
+		}
 	}
 
 	async update({ request, response }) {
