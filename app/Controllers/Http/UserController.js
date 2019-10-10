@@ -16,9 +16,12 @@ class UserController {
 	}
 
 	async show({ params, response }) {
-		const user = await User.find(params.id);
-		const estabelecimento = await user.estabelecimento().fetch();
-		return response.json(estabelecimento);
+		try {
+			const user = await User.find(params.id);
+			return response.send({ message: 'Usuário localizado!', response: true, usuario: user });
+		} catch (error) {
+			return response.send({ message: 'Erro ao localizar Usuário!\n' + error.message, response: false });
+		}
 	}
 
 	async all({ response }) {
@@ -38,18 +41,24 @@ class UserController {
 	}
 
 	async update({ request, response }) {
-		const user = await User.find(request.input('id'));
-		user.merge(request.all());
-		await user.save();
-
-		return response.json(user);
+		try {
+			const user = await User.find(request.input('id'));
+			user.merge(request.all());
+			await user.save();
+			return response.send({ message: 'Usuário editado com sucesso!', response: true });
+		} catch (error) {
+			return response.send({ message: 'Erro ao editar usuário:\n' + error.message, response: false });
+		}
 	}
 
 	async delete({ params, response }) {
-		const user = await User.find(params.id);
-		await user.delete();
-
-		return response.send({ message: 'Usuário removido com sucesso' });
+		try {
+			const user = await User.find(params.id);
+			await user.delete();
+			return response.send({ message: 'Usuário removido com sucesso!', response: true });
+		} catch (error) {
+			return response.send({ message: 'Erro ao remover usuário:\n' + error.message, response: false });
+		}
 	}
 }
 

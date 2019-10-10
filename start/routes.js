@@ -24,7 +24,7 @@ Route.group(() => {
 
 Route.group(() => {
 	Route.post('create', 'UserController.create').validator('storeUser');
-	Route.post('update', 'UserController.update');
+	Route.post('update', 'UserController.update').validator('updateUser');
 	Route.get('delete/:id', 'UserController.delete');
 	Route.get('show/:id', 'UserController.show');
 	Route.get('all', 'UserController.all');
