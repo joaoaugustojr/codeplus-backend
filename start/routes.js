@@ -31,9 +31,9 @@ Route.group(() => {
 }).prefix('users');
 
 Route.group(() => {
-	Route.post('create', 'EstabelecimentoController.create');
-	Route.post('update', 'EstabelecimentoController.update');
+	Route.post('create', 'EstabelecimentoController.create').validator('storeEstabelecimento');
+	Route.post('update', 'EstabelecimentoController.update').validator('updateEstabelecimento');
 	Route.get('delete/:id', 'EstabelecimentoController.delete');
 	Route.get('show/:id', 'EstabelecimentoController.show');
 	Route.get('all', 'EstabelecimentoController.all');
-}).prefix('estabelecimento');
+}).prefix('estabelecimentos');

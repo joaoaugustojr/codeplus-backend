@@ -13,8 +13,8 @@ class UpdateUser {
 		return {
 			nome: 'required',
 			login: 'required',
-			email: 'required|email',
-			senha: 'required'
+			email: 'required|email'
+			// senha: 'required'
 		};
 	}
 
