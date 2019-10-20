@@ -43,8 +43,15 @@ class UserController {
 	async update({ request, response }) {
 		try {
 			const user = await User.find(request.input('id'));
-			user.merge(request.all());
+
+			user.login = request.input('login');
+			user.nome = request.input('nome');
+			user.email = request.input('email');
+			user.status = request.input('status');
+			user.senha = request.input('senha') != null ? request.input('senha') : user.senha;
+
 			await user.save();
+
 			return response.send({ message: 'Usuário editado com sucesso!', response: true });
 		} catch (error) {
 			return response.send({ message: 'Erro ao editar usuário:\n' + error.message, response: false });

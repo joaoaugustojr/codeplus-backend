@@ -10,11 +10,12 @@ class UpdateUser {
 	}
 
 	get rules() {
+		const usuarioID = this.ctx.request.input('id');
+
 		return {
 			nome: 'required',
-			login: 'required',
-			email: 'required|email'
-			// senha: 'required'
+			login: `required|unique:users, login, id, ${usuarioID}`,
+			email: `required|email|unique:users, email, id, ${usuarioID}`
 		};
 	}
 
@@ -24,7 +25,8 @@ class UpdateUser {
 			'login.required': 'O Campo Login é de Preenchimento Obrigatório',
 			'email.required': 'O Campo Email é de Preenchimento Obrigatório',
 			'email.email': 'Forneça um email válido',
-			'senha.required': 'O Campo Senha é de Preenchimento Obrigatório'
+			'email.unique': 'O Email digitado já existe em outro cadastro',
+			'login.unique': 'O Login digitado já existe em outro cadastro'
 		};
 	}
 }
