@@ -37,3 +37,8 @@ Route.group(() => {
 	Route.get('show/:id', 'EstabelecimentoController.show');
 	Route.get('all', 'EstabelecimentoController.all');
 }).prefix('estabelecimentos');
+
+Route.group(() => {
+	Route.post('/', 'UploadController.upload');
+	Route.get('/list', 'UploadController.listUpload');
+}).prefix('upload');

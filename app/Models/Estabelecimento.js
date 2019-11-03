@@ -4,8 +4,12 @@
 const Model = use('Model');
 
 class Estabelecimento extends Model {
-	estabelecimento() {
+	usuarios() {
 		return this.hasMany('App/Models/User');
+	}
+
+	arquivos() {
+		return this.hasMany('App/Models/Arquivo');
 	}
 }
 
